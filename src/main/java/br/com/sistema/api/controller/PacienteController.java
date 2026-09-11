@@ -15,11 +15,6 @@ public class PacienteController {
     };
 
 
-
-
-
-
-
     // GET/POST Request -> Response -> Ex: Cadastrar Paciente. GET Exibe tela de cadastro e o POST é chamado quando o botão enviar é clicado.
    
     // GET/PUT Request -> Response -> Ex: Alterar telefone. Get exibe a tela de alteração e o PUT é chamado quando o botão alterar é clicado.
