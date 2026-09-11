@@ -1,25 +1,37 @@
 package br.com.sistema.api.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.sistema.api.model.medico.DadosCadastroMedico;
+import br.com.sistema.api.model.medico.Medico;
+import br.com.sistema.api.model.medico.MedicoRepository;
+import jakarta.transaction.Transactional;
+
 @RestController 
 @RequestMapping("medico")
 public class MedicoController {
 
+    @Autowired
+    private MedicoRepository medicoRepository;
+
     @PostMapping("/cadastro")  // localhost:8080/medico/cadastro
-    public void cadastrarMedico(@RequestBody String dados) {
-        System.out.println(dados);
+    @Transactional 
+    public void cadastrarMedico(@RequestBody DadosCadastroMedico dados) {
+        medicoRepository.save(new Medico(dados));
     }
 
     // GET Request -> Response -> Ex: Tela home
     @GetMapping("/") // Aponta para localhost:8080/medico
-    public String exibirHome() {
-        return "a";
-    };
+    public List<Medico> listarMedicos() {
+        return medicoRepository.findAll();
+    }
 
 
 
