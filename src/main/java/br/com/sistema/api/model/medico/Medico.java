@@ -20,6 +20,7 @@ public class Medico {
     private String email;
     private String telefone;
     private String crm;
+    private Boolean ativo = true;
 
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
@@ -36,6 +37,24 @@ public class Medico {
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    // Método para alterar o status do campo ativo
+    public void excluirLogico() {
+        this.ativo = false;
+    }
+
+    // Método que checa se o nome, email ou endereco estã como null
+    public void atualizarInformacoes(DadosAtualizacaoMedico dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.email() != null) {
+            this.email = dados.email();
+        }
+        if (dados.endereco() != null) {
+            this.endereco.atualizarInformacoes(dados.endereco());
+        }
     }
 
 }
