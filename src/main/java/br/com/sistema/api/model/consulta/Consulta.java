@@ -22,10 +22,17 @@ public class Consulta {
 
     private String observacao;
 
+    @ManyToOne 
+    @JoinColumn(name = "pacienteId")
     private Paciente paciente;
+    
+    @ManyToOne 
+    @JoinColumn(name = "medicoId")
     private Medico medico;
+
     private LocalDateTime data;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     // Terceiro construtor da classe Consulta que recebe a conversão do
@@ -37,8 +44,8 @@ public class Consulta {
     public Consulta(DadosAgendamentoConsulta dados) {
         this.medico = new Medico();
         this.medico.setId(dados.medicoId());
-        this.paciente.setId(dados.pacienteId());
         this.paciente = new Paciente();
+        this.paciente.setId(dados.pacienteId());
         this.status = dados.status();
         this.observacao = dados.observacao();
         this.data = dados.data();
@@ -46,4 +53,8 @@ public class Consulta {
 
 }
 
-// @ManyToOne => Relacionamento: Muitas consultas podem ter o mesmo médico.
+/**
+ @ManyToOne 
+ => Relacionamento: Muitas consultas podem ter o mesmo médico.
+ => Sempre o primeiro termo é referente a tabela atual, o segundo termo a tabela de ref.
+ */
