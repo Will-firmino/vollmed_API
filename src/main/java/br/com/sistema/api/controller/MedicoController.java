@@ -5,11 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.sistema.api.model.medico.DadosAtualizacaoMedico;
-import br.com.sistema.api.model.medico.DadosCadastroMedico;
-import br.com.sistema.api.model.medico.Medico;
-import br.com.sistema.api.model.medico.MedicoRepository;
-import jakarta.transaction.Transactional;
+import br.com.sistema.api.model.medico.*;
 
 @RestController
 @RequestMapping("medico")
@@ -30,6 +26,24 @@ public class MedicoController {
     public List<Medico> listarMedicos() {
         return medicoRepository.findAll();
     }
+
+		// GET Resquest -> Response -> Nome do Médico - map(), stream(), toList().
+		@GetMapping("/listar-por-nome") // localhost:8080/medico/listar-por-nome
+		public List<DadosListagemMedico> listarPorNome(@RequestBody String nome) {
+			return medicoRepository.findByNomeContainingIgnoreCase(nome)
+				.stream()
+				.map(DadosListagemMedico::new)
+				.toList();
+		}
+
+		// GET Request -> Response -> E-mail do Médico
+		@GetMapping("/listar-por-email") // localhost:8080/medico/listar-por-nome
+		public List<DadosListagemMedico> listarPorEmail(@RequestBody String email) {
+			return medicoRepository.findByEmailContainingIgnoreCase(email)
+				.stream()
+				.map(DadosListagemMedico::new)
+				.toList();
+		}
 
     // DEL - Exclusão real
     @DeleteMapping("/deletar/{id}") // Aponta para localhost:8080/medico/deletar/1
