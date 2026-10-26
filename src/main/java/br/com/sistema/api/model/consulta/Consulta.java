@@ -41,16 +41,13 @@ public class Consulta {
     // tentar inserir o id nesse novo médico criado, o new Medico() irá receber o
     // id, e o BD saberá que aquele id já existe e trará as informações com o id
     // daquele médico.
-    public Consulta(DadosAgendamentoConsulta dados) {
-        this.medico = new Medico();
-        this.medico.setId(dados.medicoId());
-        this.paciente = new Paciente();
-        this.paciente.setId(dados.pacienteId());
+    public Consulta(DadosAgendamentoConsulta dados, Medico medico, Paciente paciente) {
+        this.medico = medico;
+        this.paciente = paciente;
         this.status = dados.status();
         this.observacao = dados.observacao();
         this.data = dados.data();
     }
-
 }
 
 /**
